@@ -1,14 +1,14 @@
-import os
 from flask import Flask, jsonify, request
 
-import json
-from model import resize
-
+from model import split_data_and_train_models
+from contrller import resize
 
 HEADERS = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
+app = Flask(__name__)
+#split_data_and_train_models()
+
 def flask_app():
-    app = Flask(__name__)
 
 
     @app.route('/', methods=['GET'])
@@ -20,12 +20,11 @@ def flask_app():
         body = request.json
 
         print(body)
-        print('body')
+        print('body 4')
         pred = resize(body)
         print(pred)
         return jsonify(str(pred))
-    return app
 
-if __name__ == '__main__':
-    app = flask_app()
-    app.run(debug=True, port=4444)
+
+flask_app()
+app.run(debug=True, port=4444)
