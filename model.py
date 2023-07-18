@@ -139,7 +139,6 @@ def predict_resizing(modelsDictionary, inputData):
     inputData = inputData[modelsDictionary['width']['x'].columns]
     predictions_width = modelsDictionary['width']['model'].predict(inputData)
     inputData['widthAfter'] = predictions_width[0];
-    # ['ratioWidthAfter'] = predictions_width / df.sizeWidthAfter ;
     inputData = inputData[modelsDictionary['height']['x'].columns]
     predictions_height = modelsDictionary['height']['model'].predict(inputData)
     inputData['heightAfter'] = predictions_height[0];
