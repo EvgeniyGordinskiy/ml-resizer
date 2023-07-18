@@ -20,7 +20,6 @@ def flask_app():
         body = request.json
 
         print(body)
-        print('body 4')
         pred = resize(body)
         print(pred)
         return jsonify(str(pred))

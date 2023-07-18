@@ -62,9 +62,6 @@ def process_data_and_fit_model(target_cols, drop_cols, model):
     y_train, _ = process_categorical_features(y_train);
     y_valid, _ = process_categorical_features(y_valid);
 
-    # print(X_train, 'X_train');
-    # print(y_train, 'y_train');
-
     # Fit the model
     model.fit(X_train, y_train)
 
@@ -73,24 +70,16 @@ def process_data_and_fit_model(target_cols, drop_cols, model):
 
 def predictResizing(modelsDictionary, inputData):
     inputData = inputData[modelsDictionary['width']['x'].columns]
-    print(inputData, 'inputData')
     predictions_width = modelsDictionary['width']['model'].predict(inputData)
-    print(predictions_width, 'width')
     inputData['widthAfter'] = predictions_width[0];
-    # ['ratioWidthAfter'] = predictions_width / df.sizeWidthAfter ;
     inputData = inputData[modelsDictionary['height']['x'].columns]
-    # print(df.head(), '0000')
     predictions_height = modelsDictionary['height']['model'].predict(inputData)
-    print(predictions_height, 'height')
     inputData['heightAfter'] = predictions_height[0];
-    # df['ratioHeightAfter'] = predictions_width / df.sizeWidthAfter ;
     inputData = inputData[modelsDictionary['top']['x'].columns]
     predictions_top = modelsDictionary['top']['model'].predict(inputData);
     inputData['topAfter'] = predictions_top[0]
-    print(predictions_top, 'left');
     inputData = inputData[modelsDictionary['left']['x'].columns]
     predictions_left = modelsDictionary['left']['model'].predict(inputData);
-    print(predictions_left, 'left');
     inputData['leftAfter'] = predictions_left[0];
 
     return predictions_width[0], predictions_height[0], predictions_left[0], predictions_top[0]
@@ -100,9 +89,7 @@ def process_user_input(userInput):
     dfUserInput, column_names_input = process_categorical_features(dfUserInput)
     X_role, y_role = preprocess_data(data, ['role'], ['role'])
     X_role_oh, column_names = process_categorical_features(X_role)
-    print(column_names, 'column_names')
     for column in column_names:
-        print(column, 'column')
         if column not in dfUserInput: dfUserInput[column] = 0
 
     return dfUserInput
@@ -150,24 +137,17 @@ def split_data_and_train_models():
 
 def predict_resizing(modelsDictionary, inputData):
     inputData = inputData[modelsDictionary['width']['x'].columns]
-    print(inputData, 'inputData')
     predictions_width = modelsDictionary['width']['model'].predict(inputData)
-    print(predictions_width, 'width')
     inputData['widthAfter'] = predictions_width[0];
     # ['ratioWidthAfter'] = predictions_width / df.sizeWidthAfter ;
     inputData = inputData[modelsDictionary['height']['x'].columns]
-    # print(df.head(), '0000')
     predictions_height = modelsDictionary['height']['model'].predict(inputData)
-    print(predictions_height, 'height')
     inputData['heightAfter'] = predictions_height[0];
-    # df['ratioHeightAfter'] = predictions_width / df.sizeWidthAfter ;
     inputData = inputData[modelsDictionary['top']['x'].columns]
     predictions_top = modelsDictionary['top']['model'].predict(inputData);
     inputData['topAfter'] = predictions_top[0]
-    print(predictions_top, 'left');
     inputData = inputData[modelsDictionary['left']['x'].columns]
     predictions_left = modelsDictionary['left']['model'].predict(inputData);
-    print(predictions_left, 'left');
     inputData['leftAfter'] = predictions_left[0];
 
     return {'width': predictions_width[0],
